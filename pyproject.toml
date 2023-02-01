@@ -1,0 +1,40 @@
+[project]
+name = "nix_python"
+description = "Beginner-friendly python project template with Nix"
+readme = "README.md"
+requires-python = ">=3.9, <4"
+license = {file = "LICENSE.txt"}
+
+dependencies = [
+]
+
+
+# see tool.setuptools.dynamic below
+dynamic = ["version"]
+
+
+[tool.setuptools.dynamic]
+version = {attr = "nix_python.VERSION"}
+
+[tool.setuptools.packages.find]
+where = ["src"]  # list of folders that contain the packages (["."] by default)
+include = ["nix_python*"]  # package names should match these glob patterns (["*"] by default)
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
+
+
+[project.urls]
+"Homepage" = "https://github.com/abdullin/bgn-python"
+
+[project.scripts]
+
+
+
+[build-system]
+# we still use setup tools
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.distutils.bdist_wheel]
+universal = true
