@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Iris Binary Classifier</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    function predict() {
+      var x = [parseFloat(document.getElementById("x1").value),
+               parseFloat(document.getElementById("x2").value),
+               parseFloat(document.getElementById("x3").value),
+               parseFloat(document.getElementById("x4").value)];
+
+      $.ajax({
+        type: 'POST',
+        url: '/predict',
+        contentType: 'application/json',
+        data: JSON.stringify({x: x}),
+        success: function(data) {
+          var y_pred = data.y_pred;
+          document.getElementById("result").innerHTML = y_pred === 0 ? 'setosa' : 'not setosa';
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Iris Binary Classifier</h1>
+  <p>Enter the feature values for a sample of Iris:</p>
+  <table>
+    <tr>
+      <td>x1:</td>
+      <td><input id="x1" type="text"></td>
+    </tr>
+    <tr>
+      <td>x2:</td>
+      <td><input id="x2" type="text"></td>
+    </tr>
+    <tr>
+      <td>x3:</td>
+      <td><input id="x3" type="text"></td>
+    </tr>
+    <tr>
+      <td>x4:</td>
+      <td><input id="x4" type="text"></td>
+    </tr>
+  </table>
+  <button onclick="predict()">Predict</button>
+  <p>Result: <span id="result"></span></p>
+</body>
+</html>
