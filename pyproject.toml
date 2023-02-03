@@ -7,7 +7,8 @@ license = {file = "LICENSE.txt"}
 
 dependencies = [
     "torch",
-    "pandas"
+    "pandas",
+    "Flask",
 ]
 
 
@@ -29,7 +30,7 @@ namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
 "Homepage" = "https://github.com/abdullin/bgn-python"
 
 [project.scripts]
-"main" = "nix_python.main:main"
+"serve" = "nix_python.serve:serve"
 
 
 

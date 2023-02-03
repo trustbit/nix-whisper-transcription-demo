@@ -76,5 +76,8 @@ def predict():
     # Return the predictions as a JSON response
     return jsonify({'y_pred': y_pred})
 
-if __name__ == '__main__':
+def serve():
     app.run()
+
+if __name__ == '__main__':
+    serve()
