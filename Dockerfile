@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # Install the required packages
-RUN pip install  --no-cache-dir -r requirements.txt
+RUN pip install  --no-cache-dir -r requirements.txt .
 
 # Expose the port for the Flask API
 EXPOSE 5000
 
 # Run the command to start the Flask API
-CMD ["python", "src/nix_python/serve.py"]
+CMD ["serve"]
