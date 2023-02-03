@@ -2,7 +2,19 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import pandas as pd
+import sys
+from loguru import logger
+from nix_python.logs import configure_logs
+
 from flask import Flask, request, jsonify, render_template
+
+
+
+
+app = Flask(__name__)
+
+handler = configure_logs()
+app.logger.addHandler(handler)
 
 # Load the Iris dataset
 data = pd.read_csv('https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv')
@@ -49,10 +61,10 @@ for epoch in range(100):
     loss.backward()
     optimizer.step()
 
-    print(f'Epoch {epoch + 1}, Loss: {loss.item()}')
+    if epoch % 10 == 9:
+        logger.info('Epoch {epoch}, Loss: {loss}', epoch=epoch+1, loss=loss.item())
 
 # Initialize the Flask API
-app = Flask(__name__)
 
 @app.route('/')
 def index():
