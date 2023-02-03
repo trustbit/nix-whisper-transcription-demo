@@ -4,7 +4,7 @@ import torch.optim as optim
 import pandas as pd
 import sys
 from loguru import logger
-from nix_python.logs import configure_logs
+from .logs import configure_logs
 
 from flask import Flask, request, jsonify, render_template
 
