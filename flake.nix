@@ -21,11 +21,15 @@
                # this is how we add native dependencies to the shell
                # e.g. grpc libstdc++.so.6
                stdenv.cc.cc.lib
+               zlib
            ];
 
            shellHook = ''
                # make sure that python could load that lib
                export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib/:$LD_LIBRARY_PATH
+
+               export LD_LIBRARY_PATH=${pkgs.zlib}/lib/:$LD_LIBRARY_PATH
+
            '';
        };
     });
