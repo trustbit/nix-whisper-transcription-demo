@@ -33,7 +33,7 @@ namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
 
 [project.scripts]
 "serve" = "nix_python.serve:serve"
-
+"nix-python" = "nix_python.serve:serve"
 
 
 [build-system]

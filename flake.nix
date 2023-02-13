@@ -10,27 +10,70 @@
     flake-utils.lib.eachDefaultSystem (system:
     let
         pkgs = import nixpkgs { inherit system; };
-        pythonEnv = pkgs.python3.withPackages(ps: with ps; [
-            pip virtualenv wheel
-        ]);
     in
-    {
+    rec {
+
         devShells.default = pkgs.mkShell {
+           venvDir = "./.venv";
            buildInputs = with pkgs; [
-               pythonEnv
+               pkgs.python310Packages.python
+               pkgs.python310Packages.venvShellHook
                # this is how we add native dependencies to the shell
                # e.g. grpc libstdc++.so.6
                stdenv.cc.cc.lib
-               zlib
            ];
 
-           shellHook = ''
-               # make sure that python could load that lib
-               export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib/:$LD_LIBRARY_PATH
+          postVenvCreation = ''
+            unset SOURCE_DATE_EPOCH
+            pip install .
+          '';
 
-               export LD_LIBRARY_PATH=${pkgs.zlib}/lib/:$LD_LIBRARY_PATH
-
-           '';
+          # Now we can execute any commands within the virtual environment.
+          # This is optional and can be left out to run pip manually.
+          postShellHook = ''
+            # allow pip to install wheels
+            unset SOURCE_DATE_EPOCH
+          '';
        };
+
+      packages.nix-python =
+        pkgs.python310.pkgs.buildPythonPackage rec {
+         pname = "nix-python";
+         version = "0.0alpha";
+         format = "pyproject";
+
+          src = ./.;
+
+          buildInputs = with pkgs; [
+               pkgs.python310Packages.setuptools
+               pkgs.python310Packages.loguru
+               pkgs.python310Packages.flask
+               pkgs.python310Packages.torch
+               pkgs.python310Packages.pandas
+               # this is how we add native dependencies to the shell
+               # e.g. grpc libstdc++.so.6
+               stdenv.cc.cc.lib
+           ];
+
+          propagatedBuildInputs = with pkgs; [
+               pkgs.python310Packages.setuptools
+               pkgs.python310Packages.loguru
+               pkgs.python310Packages.flask
+               pkgs.python310Packages.torch
+               pkgs.python310Packages.pandas
+               # this is how we add native dependencies to the shell
+               # e.g. grpc libstdc++.so.6
+               stdenv.cc.cc.lib
+           ];
+
+          setuptoolsCheckPhase = "true";
+        };
+
+        defaultPackage = packages.nix-python;
+
+        apps.default = {
+          type = "app";
+          program = "${self.packages.${system}.nix-python}/bin/nix-python";
+        };
     });
 }
