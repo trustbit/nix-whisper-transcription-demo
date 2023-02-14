@@ -8,6 +8,14 @@ This implementation sets a stage to demonstrate dependency management in data sc
 
 The project is based on a standard Python project layout (including PEP621 for pyproject.toml). Based on our experience in operating ML models, we have extended this scaffolding with Nix and direnv. Just to make sure all data scientists have same setup as training and serving stages, without worrying about Docker or broken Python setups.  
 
+In other words, this is a comfortable tooling:
+
+- to have a **reproducible local project workspace**;
+- **to isolate dependencies** (binary and other third-party) between projects;
+- **to collaborate efficiently** with colleagues by sharing sources and binaries;
+- **to facilitate testing** by reproducing training and inference environments;
+- **to save operations time and expedite hot-fix delivery across projects** via declarative configuration as a code;
+- to support work across processor architectures (e.g. Intel/AMD and Apple M1/M2).
 
 ## Usage
 
