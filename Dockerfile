@@ -12,7 +12,7 @@ RUN mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" 
 RUN nix-channel --update
 
 # Install demo app as flake from github
-RUN nix build github:krasina15/nix-python/0.0.0
+RUN nix build github:trustbit/nix-python/0.0.0
 
 # Run the command to start demo app Flask API
 CMD /app/result/bin/serve
