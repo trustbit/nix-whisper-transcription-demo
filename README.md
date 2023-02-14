@@ -44,6 +44,7 @@ Then you can execute `serve` and should get the output like:
  * Running on http://127.0.0.1:5000
 2023-02-14 12:10:46.611 | INFO     | werkzeug._internal:_log:224 - Press CTRL+C to quit
 ```
+You can open your browser at [http://127.0.0.1:5000](http://127.0.0.1:5000) to view a UI for the Iris classifier.
 
 
 ## Implementation Details
