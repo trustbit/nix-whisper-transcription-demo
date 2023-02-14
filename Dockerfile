@@ -1,17 +1,18 @@
-# Use a base image with Python and Flask already installed
-FROM python:3.9
+# Use a base image with NixOs
+FROM nixos/nix
 
-# Set the working directory
+# Create a working directory to install a code
+RUN mkdir /app
 WORKDIR /app
 
-# Copy the application code to the container
-COPY . /app
+# Need to enable flakes 
+RUN mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
-# Install the required packages
-RUN pip install  --no-cache-dir -r requirements.txt .
+# Fetch data about last conservative updates for fixing bugs and security vulnerabilities 
+RUN nix-channel --update
 
-# Expose the port for the Flask API
-EXPOSE 5000
+# Install demo app as flake from github
+RUN nix build github:krasina15/nix-python/0.0.0
 
-# Run the command to start the Flask API
-CMD ["serve"]
+# Run the command to start demo app Flask API
+CMD /app/result/bin/serve
