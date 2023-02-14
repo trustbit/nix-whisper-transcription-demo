@@ -14,7 +14,7 @@ The project is based on a standard Python project layout (including PEP621 for p
 If you have our recommended configuration of [Nix data science VM](https://github.com/trustbit/nix-data-science-vm), then to use this setup:
 
 1. Check out this repository and open the folder
-2. `direnv allow` to permit direng operate
+2. `direnv allow` to permit direnv to operate
 3. **Automatic**: direnv and Nix will ensure exact python version, virtual environment and binary dependencies.
 4. `pip install --editable .` - install python project for editing. This will also create `serve` command.
 
