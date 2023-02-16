@@ -25,7 +25,7 @@
 
           postVenvCreation = ''
             unset SOURCE_DATE_EPOCH
-            pip install .
+            pip install -r requirements.txt --editable .
           '';
 
           # Now we can execute any commands within the virtual environment.
