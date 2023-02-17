@@ -1,1 +1,2 @@
 # pin dependencies here with pip freeze >> requirements.txt
+git+https://github.com/linto-ai/whisper-timestamped

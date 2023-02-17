@@ -1,108 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Iris Binary Classifier</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    function predict() {
-      var x = [parseFloat(document.getElementById("x1").value),
-               parseFloat(document.getElementById("x2").value),
-               parseFloat(document.getElementById("x3").value),
-               parseFloat(document.getElementById("x4").value)];
-
-      $.ajax({
-        type: 'POST',
-        url: '/predict',
-        contentType: 'application/json',
-        data: JSON.stringify({x: x}),
-        success: function(data) {
-          var y_pred = data.y_pred;
-          document.getElementById("result").innerHTML = y_pred === 0 ? 'setosa' : 'not setosa';
+    <meta charset="UTF-8">
+    <title>Nix Whisper transcription demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        async function uploadFile() {
+            let formData = new FormData();
+            formData.append("file", fileupload.files[0]);
+            await fetch('/predict', {
+                method: "POST",
+                body: formData
+            }).then(function (response) {
+                return response.json();
+            }).then(function (json_data) {
+                $("#code").val(JSON.stringify(json_data))
+            });
         }
-      });
-    }
-  </script>
+    </script>
 
-  <style>
+    <style>
 
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
 
-h1 {
-  text-align: center;
-  margin-top: 50px;
-}
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
 
-table {
-  margin: 0 auto;
-  margin-top: 50px;
-}
+        table {
+            margin: 0 auto;
+            margin-top: 50px;
+        }
 
-td {
-  padding: 10px;
-}
+        td {
+            padding: 10px;
+        }
 
-input[type="text"] {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 200px;
-}
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
 
-button {
-  display: block;
-  margin: 0 auto;
-  margin-top: 50px;
-  padding: 10px 20px;
-  background-color: #007aff;
-  color: #fff;
-  border-radius: 5px;
-  border: 0;
-  font-size: 16px;
-  cursor: pointer;
-}
+        button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 50px;
+            padding: 10px 20px;
+            background-color: #007aff;
+            color: #fff;
+            border-radius: 5px;
+            border: 0;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-#result {
-  margin-top: 50px;
-  font-size: 20px;
-  text-align: center;
-}
+        #result {
+            margin-top: 50px;
+            font-size: 20px;
+            text-align: center;
+        }
 
-p {
-  text-align: center;
-}
+        p {
+            text-align: center;
+        }
 
-  </style>
+    </style>
 </head>
 <body>
-  <h1>Iris Binary Classifier</h1>
-  <p>Enter the feature values for a sample of Iris:</p>
-  <table>
-    <tr>
-      <td>x1:</td>
-      <td><input id="x1" type="text"></td>
-    </tr>
-    <tr>
-      <td>x2:</td>
-      <td><input id="x2" type="text"></td>
-    </tr>
-    <tr>
-      <td>x3:</td>
-      <td><input id="x3" type="text"></td>
-    </tr>
-    <tr>
-      <td>x4:</td>
-      <td><input id="x4" type="text"></td>
-    </tr>
-  </table>
-  <button onclick="predict()">Predict</button>
-  <p>Result: <span id="result"></span></p>
+<h1>Nix Whisper transcription demo</h1>
+<p>Upload audio file:</p>
+<input id="fileupload" type="file" name="fileupload"/>
+<button id="upload-button" onclick="uploadFile()"> Upload</button>
+<p>Result: <span id="result"></span></p>
+<pre id="code"></pre>
 </body>
 </html>
