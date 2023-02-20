@@ -40,17 +40,19 @@ You can execute `serve` and should get the output like:
 
 ![log output](img/1.png)
 
-You can open your browser at [http://127.0.0.1:5001](http://127.0.0.1:5001) to view a UI for the Iris classifier:
+You can open your browser at [http://127.0.0.1:5001](http://127.0.0.1:5001) to view a web UI:
 
 ![webui page](img/2.png)
 
-Select any ogg and mp3 files that contain language [sample](img/sample.ogg) by **Choose the file** button:
+Select any ogg and mp3 files that contain language [sample](sample.ogg) by **Choose the file** button:
 
 ![webui page](img/3.png)
 
 Cick on Upload button and wait for a moments for resutl:
 
 ![webui page](img/5.png)
+
+GPU is not required, demo app will run on CPU, but on GPU the application will run much faster. If GPU support is available, the application will switch to using the GPU automatically.
 
 
 ## Implementation Details
