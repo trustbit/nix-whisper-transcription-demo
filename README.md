@@ -1,21 +1,29 @@
-# Python project scaffolding for Machine Learning
+# Nix flake environment for a sample Python project scaffolding for Machine Learning (whisper)
 
-This is how we'd setup our own python projects (data ops, science and ML).
+This is a Nix flake environment for developing a sample Python project scaffolding for Machine Learning using whisper and the following dependencies:
 
-This project trains a neural network (PyTorch) on [Iris flower dataset](https://archive.ics.uci.edu/ml/datasets/iris). The model is then exposed via Flask as an API and Web UI.
+* Python 3.10
+* ffmpeg
+* loguru
+* flask
+* torch
+* pandas
 
-This implementation sets a stage to demonstrate dependency management in data science and machine learning projects. 
+The `mkShell` function is used to create a development shell that includes all these dependencies, as well as any dependencies listed in the requirements.txt file. The shell is created in a virtual environment located in the `./.venv` directory.
 
-The project is based on a standard Python project layout (including PEP621 for pyproject.toml). Based on our experience in operating ML models, we have extended this scaffolding with Nix and direnv. Just to make sure all data scientists have same setup as training and serving stages, without worrying about Docker or broken Python setups.  
+To use this flake, you need to have Nix installed. Once you have Nix installed, you can clone this repository and run the following command in the repository directory:
 
-In other words, this is a comfortable tooling:
+`nix develop`
 
-- to have a **reproducible local project workspace**;
-- **to isolate dependencies** (binary and other third-party) between projects;
-- **to collaborate efficiently** with colleagues by sharing sources and binaries;
-- **to facilitate testing** by reproducing training and inference environments;
-- **to save operations time and expedite hot-fix delivery across projects** via declarative configuration as a code;
-- to support work across processor architectures (e.g. Intel/AMD and Apple M1/M2).
+This will create a development shell with all the required dependencies installed and You will have venv shell automaticly.
+
+You can use this environment to develop a machine learning project using whisper. Whisper provides a set of tools for building, training and testing neural networks in PyTorch.
+
+The `src` directory in this project includes a sample Python module `nix_python` that uses whisper to run a neural network. You can modify this module to build and train your own neural network models.
+
+The flake also includes a buildPythonPackage for a package named "nix-python", which is built using the pyproject format. The package includes the dependencies listed above, as well as the setuptools package. 
+
+Enjoy your machine learning development environment with whisper!
 
 ## Usage
 
@@ -26,25 +34,23 @@ If you have our recommended configuration of [Nix data science VM](https://githu
 3. **Automatic**: direnv and Nix will ensure exact python version, virtual environment and binary dependencies.
 4. `pip install --editable .` - install python project for editing. This will also create `serve` command.
 
+Further in the example will be used a [Bashkir Langiage speech-to-text transcription model](https://huggingface.co/AigizK/whisper-medium-ba) 
 
-Then you can execute `serve` and should get the output like:
+You can execute `serve` and should get the output like:
 
-```                                                         
-2023-02-14 12:10:46.588 | INFO     | nix_python.serve:<module>:67 - Epoch 10, Loss: 0.39774712920188904
-2023-02-14 12:10:46.590 | INFO     | nix_python.serve:<module>:67 - Epoch 20, Loss: 0.227406844496727
-2023-02-14 12:10:46.592 | INFO     | nix_python.serve:<module>:67 - Epoch 30, Loss: 0.12843188643455505
-2023-02-14 12:10:46.595 | INFO     | nix_python.serve:<module>:67 - Epoch 40, Loss: 0.08055561035871506
-2023-02-14 12:10:46.597 | INFO     | nix_python.serve:<module>:67 - Epoch 50, Loss: 0.05586405470967293
-2023-02-14 12:10:46.599 | INFO     | nix_python.serve:<module>:67 - Epoch 60, Loss: 0.04163944721221924
-2023-02-14 12:10:46.600 | INFO     | nix_python.serve:<module>:67 - Epoch 70, Loss: 0.032664697617292404
-2023-02-14 12:10:46.602 | INFO     | nix_python.serve:<module>:67 - Epoch 80, Loss: 0.026602912694215775
-2023-02-14 12:10:46.604 | INFO     | nix_python.serve:<module>:67 - Epoch 90, Loss: 0.022280622273683548
-2023-02-14 12:10:46.605 | INFO     | nix_python.serve:<module>:67 - Epoch 100, Loss: 0.019068924710154533
-2023-02-14 12:10:46.611 | INFO     | werkzeug._internal:_log:224 - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on http://127.0.0.1:5000
-2023-02-14 12:10:46.611 | INFO     | werkzeug._internal:_log:224 - Press CTRL+C to quit
-```
-You can open your browser at [http://127.0.0.1:5000](http://127.0.0.1:5000) to view a UI for the Iris classifier.
+![log output](img/1.png)
+
+You can open your browser at [http://127.0.0.1:5001](http://127.0.0.1:5001) to view a UI for the Iris classifier:
+
+![webui page](img/2.png)
+
+Select any ogg and mp3 files that contain language [sample](img/sample.ogg) by **Choose the file** button:
+
+![webui page](img/3.png)
+
+Cick on Upload button and wait for a moments for resutl:
+
+![webui page](img/5.png)
 
 
 ## Implementation Details

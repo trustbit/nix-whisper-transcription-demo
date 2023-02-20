@@ -1,11 +1,21 @@
 import whisper_timestamped as whisper
+import pkgutil
 from flask import Flask, request, jsonify, render_template
+import os
 
 from nix_python.logs import configure_logs
 
-whisper_checkpoint_path = './bashkir-whisper-medium-checkpoint.pt'
+print('getcwd:      ', os.getcwd())
+print('file:    ', __file__)
 
-model = whisper.load_model(whisper_checkpoint_path, device="cuda")
+whisper_checkpoint_path = os.path.join(os.getcwd(), "src", "nix_python", "bashkir-whisper-medium-checkpoint.pt") 
+print("file exist :", os.path.isfile(whisper_checkpoint_path))
+
+import torch
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+model = whisper.load_model(whisper_checkpoint_path, device=device)
 
 app = Flask(__name__)
 handler = configure_logs()

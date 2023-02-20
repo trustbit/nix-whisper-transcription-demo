@@ -18,11 +18,12 @@
            buildInputs = with pkgs; [
                pkgs.python310Packages.python
                pkgs.python310Packages.venvShellHook
+               pkgs.ffmpeg
+#               pkgs.libgccjit
                # this is how we add native dependencies to the shell
                # e.g. grpc libstdc++.so.6
                stdenv.cc.cc.lib
            ];
-
           postVenvCreation = ''
             unset SOURCE_DATE_EPOCH
             pip install -r requirements.txt --editable .
@@ -32,6 +33,8 @@
           # This is optional and can be left out to run pip manually.
           postShellHook = ''
             # allow pip to install wheels
+            echo "LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib" >> .venv/bin/activate
+            export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib 
             unset SOURCE_DATE_EPOCH
           '';
        };

@@ -1,2 +1,3 @@
 include LICENSE.txt
 graft src/nix_python/templates
+graft src/nix_python/bashkir-whisper-medium-checkpoint.pt
