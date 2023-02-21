@@ -1,4 +1,4 @@
-# Nix flake environment for a sample Python project scaffolding for Machine Learning (whisper)
+# Nix flake sample for for Machine Learning (whisper)
 
 This is a Nix flake environment for developing a sample Python project scaffolding for Machine Learning using whisper and the following dependencies:
 
