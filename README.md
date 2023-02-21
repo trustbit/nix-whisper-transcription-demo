@@ -54,6 +54,12 @@ Cick on Upload button and wait for a moments for resutl:
 
 GPU is not required, demo app will run on CPU, but on GPU the application will run much faster. If GPU support is available, the application will switch to using the GPU automatically.
 
+## More training details
+
+1. The model is fine-tuning with the HuggingFace scripts: https://github.com/huggingface/community-events/tree/main/whisper-fine-tuning-event
+2. The openai/medium model with 769M parameters was used as a basis.
+3. We used Common Voice dataset: https://commonvoice.mozilla.org/ba/datasets 
+4. To train the model we used our TrustBit server: AMD EPYC 7452 32-Core Processor, RTX 3090 GPU, 128 GB RAM
 
 ## Implementation Details
 
