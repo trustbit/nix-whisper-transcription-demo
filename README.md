@@ -57,7 +57,7 @@ GPU is not required, demo app will run on CPU, but on GPU the application will r
 ## More training details
 
 1. The model is fine-tuning with the HuggingFace scripts: https://github.com/huggingface/community-events/tree/main/whisper-fine-tuning-event
-2. The openai/medium model with 769M parameters was used as a basis.
+2. The openai/medium model with 769M parameters was used as a basis. Our model was the winner among Bashkir language models in the Whisper Event. <img width="1135" alt="image" src="https://user-images.githubusercontent.com/1628540/220281007-3bc88f1d-6d2c-41a2-b3f9-e433ff4c9b3a.png">
 3. We used Common Voice dataset: https://commonvoice.mozilla.org/ba/datasets 
 4. To train the model we used our TrustBit server: AMD EPYC 7452 32-Core Processor, RTX 3090 GPU, 128 GB RAM
 
